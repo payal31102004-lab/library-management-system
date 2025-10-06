@@ -1,0 +1,35 @@
+{% include 'header2.html' %}
+<div class="content">
+    <h2 class="mb-4">👥 Manage Members</h2>
+
+
+<!-- Add Member Modal -->
+                <form method="POST" action="../manage_members_update/">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input type="hidden" name="id" value="{{ show.id }}">
+                            <input type="text" name="name" value="{{ show.name }}" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" value="{{ show.email }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Phone</label>
+                            <input type="text" name="phone"  value="{{ show.phone }}" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Membership Date</label>
+                            <input type="date" name="membership_date" value="{{ show.members_date }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <button type="submit" name="add_member" class="btn btn-primary">Manage Members edit</button>
+                </form>
+            </div>
+
+
+{% include 'footer.html' %}

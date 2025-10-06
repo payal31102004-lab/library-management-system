@@ -1,0 +1,86 @@
+{% include 'header2.html' %}
+<div class="content">
+    <h2 class="mb-4">👥 Manage Members</h2>
+
+    <!-- Add Member Button -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+        ➕ Add New Member
+    </button>
+
+    
+    <!-- Members Table -->
+    <div class="card p-4">
+        <h4>📋 Members List</h4>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Membership Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for x in show %}
+                <tr>
+                    <td>{{x.id}}</td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.email}}</td>
+                    <td>{{x.phone}}</td>
+                    <td>{{x.members_date}}</td>
+                    <td><a href="../manage_members_edit/{{x.id}}" class="btn btn-primary">Edit</a>
+                    <a href="../manage_members_delete/{{ x.id }}" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination Links -->
+        <nav>
+            
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Add Member Modal -->
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMemberModalLabel">➕ Add New Member</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="../manage_members_code/">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Phone</label>
+                            <input type="text" name="phone" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Membership Date</label>
+                            <input type="date" name="membership_date" class="form-control" required>
+                        </div>
+                    </div>
+                    <button type="submit" name="add_member" class="btn btn-primary">Save Member</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

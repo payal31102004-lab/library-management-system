@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Library Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            height: 100vh;
+            background: #343a40;
+            color: white;
+            position: fixed;
+            top: 56px; /* navbar height */
+            left: 0;
+            width: 220px;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: #495057;
+            border-radius: 8px;
+        }
+
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            margin-top: 56px; /* navbar height */
+        }
+
+        .admin-icon {
+            position: relative;
+            display: inline-block;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: green;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">📚 Library Admin</a>
+            <div class="ms-auto">
+                <div class="admin-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                        alt="Admin" width="40" height="40" class="rounded-circle">
+                    <span class="status-dot"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% include 'header2.html' %}
+    <!-- Main Content -->
+    <div class="content">
+        <h2 class="mb-4">📊 Dashboard Overview</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white p-4">
+                    <h4>Total Books</h4>
+                    <h2>{{ show }}</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white p-4">
+                    <h4>Total Members</h4>
+                    <h2>{{ show1 }}</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white p-4">
+                    <h4>Books Issued</h4>
+                    <h2>{{ show2 }}</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-primary text-white p-4">
+                    <h4>Return Books</h4>
+                    <h2>{{ show3 }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="mt-5">📖 Recently Issued Books</h3>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Issue ID</th>
+                    <th>Member</th>
+                    <th>Book</th>
+                    <th>Issue Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in getdata %}
+                  <tr>
+                      <td>{{ x.id }}</td>
+                      <td>{{ x.memberid }}</td>
+                      <td>{{ x.bookid }}</td>
+                      <td>{{ x.issueid }}</td>
+                  </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

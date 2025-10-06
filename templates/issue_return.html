@@ -1,0 +1,167 @@
+{% include 'header2.html' %}
+<div class="content">
+    <h2 class="mb-4">📚 Issue / Return Books</h2>
+
+    <!-- Issue Book Button -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#issueBookModal">
+        ➕ Issue Book
+    </button>
+
+    <button class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#issueBookModal_1">
+        ➕ Return Book
+    </button>
+
+    
+
+    <!-- Issued Books Table -->
+    <div class="card p-4">
+        <h4>📖 Issued Books</h4>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Issue ID</th>
+                    <th>Member</th>
+                    <th>Book</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                    <th>Fine</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for result in show2 %}
+                <tr>
+                    <td>{{ result.id }}</td>
+                    <td>{{ result.memberid }}</td>
+                    <td>{{ result.bookid }}</td>
+                    <td>{{ result.issuedate }}</td>
+                    <td>{{ result.duedate }}</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td><a href="" class="btn btn-info">Edit</a>
+                    <a href="" class="btn btn-danger">delete</a></td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="card p-4">
+        <h4>📖 Return Books</h4>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Return ID</th>
+                    <th>Member</th>
+                    <th>Book</th>
+                    <th>Return Date</th>
+                    <th>Fine</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for res in show3 %}
+                <tr>
+                    <td>{{ res.id }}</td>
+                    <td>{{ res.bookid }}</td>
+                    <td>{{ res.memberid }}</td>
+                    <td>{{ res.returndate }}</td>
+                    <td><a href="" class="btn btn-info">Edit</a>
+                    <a href="" class="btn btn-danger">delete</a></td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Issue Book Modal -->
+<div class="modal fade" id="issueBookModal" tabindex="-1" aria-labelledby="issueBookModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="issueBookModalLabel">➕ Issue Book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="../issue_return_code/">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Member</label>
+                    <select name="member_id" class="form-control" required>
+                        {% for x1 in show1 %}
+                        <option>{{ x1.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Book</label>
+                    <select name="book_id" class="form-control" required>
+                       {% for x in show %}
+                        <option>{{ x.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Due Date</label>
+                <input type="date" name="due_date" class="form-control" required>
+            </div>
+            <button type="submit" name="issue_book" class="btn btn-primary">Issue Book</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Return Book Modal -->
+<div class="modal fade" id="issueBookModal_1" tabindex="-1" aria-labelledby="issueBookModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="issueBookModalLabel">➕ Return Book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="../return_book_code/">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Member</label>
+                    <select name="member_id" class="form-control" required>
+                        {% for x1 in show1 %}
+                        <option>{{ x1.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Book</label>
+                    <select name="book_id" class="form-control" required>
+                       {% for x in show %}
+                        <option value="{{x.id}}">{{ x.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Return Date</label>
+                <input type="date" name="due_date" class="form-control" required>
+            </div>
+            <button type="submit" name="issue_book" class="btn btn-primary">Return Book</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html' %}
